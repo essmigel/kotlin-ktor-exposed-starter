@@ -10,7 +10,7 @@ import io.restassured.response.ResponseBodyExtractionOptions
 import io.restassured.specification.RequestSpecification
 import kotlinx.coroutines.runBlocking
 import model.Widgets
-import module
+import run
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.junit.jupiter.api.BeforeAll
@@ -37,7 +37,7 @@ open class ServerTest {
         @JvmStatic
         fun startServer() {
             if (!serverStarted) {
-                server = embeddedServer(Netty, 8080, module = Application::module)
+                server = embeddedServer(Netty, 8080, module = Application::run)
                 server.start()
                 serverStarted = true
 

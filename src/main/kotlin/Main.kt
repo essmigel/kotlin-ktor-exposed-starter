@@ -14,7 +14,7 @@ import service.DatabaseFactory
 import service.WidgetService
 import web.widget
 
-fun Application.module() {
+fun Application.run() {
     install(DefaultHeaders)
     install(CallLogging)
     install(WebSockets)
