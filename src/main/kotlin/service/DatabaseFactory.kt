@@ -13,7 +13,7 @@ object DatabaseFactory {
     fun init() {
         // Database.connect("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
         val config = HikariConfig().apply {
-            jdbcUrl         = "jdbc:mysql://localhost/test"
+            jdbcUrl         = "jdbc:mysql://localhost/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
             driverClassName = "com.mysql.cj.jdbc.Driver"
             username        = "test1"
             password        = "test1"
