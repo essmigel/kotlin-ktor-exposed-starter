@@ -3,9 +3,8 @@ package service
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import model.Widgets
-import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SchemaUtils.create
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -13,8 +12,18 @@ object DatabaseFactory {
 
     fun init() {
         // Database.connect("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", driver = "org.h2.Driver")
-        Database.connect(hikari())
+        val config = HikariConfig().apply {
+            jdbcUrl         = "jdbc:mysql://localhost/test"
+            driverClassName = "com.mysql.cj.jdbc.Driver"
+            username        = "root"
+            password        = "1333631331"
+            maximumPoolSize = 10
+        }
+        val dataSource = HikariDataSource(config)
+        Database.connect(dataSource)
+        //Database.connect(hikari())
         transaction {
+            addLogger(StdOutSqlLogger)
             create(Widgets)
             Widgets.insert {
                 it[name] = "widget one"
